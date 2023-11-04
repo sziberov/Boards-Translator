@@ -20,7 +20,7 @@ $(() => {
 	}
 
 	for(let tune of tunes) {
-		let fretsElement = $('<ul/>').attr('__frets', '').attr('data-tune', tune).appendTo($('[__strings]')),
+		let fretsElement = $('<ul/>').attr('__frets', '').appendTo($('[__strings]')),
 			offset = notes.indexOf(tune[0]),
 			octave = tune[1]
 
