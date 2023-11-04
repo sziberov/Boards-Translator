@@ -12,7 +12,7 @@ $(() => {
 				keyElement.attr('black_', '');
 			}
 			if(tunes.includes(note+octave)) {
-				keyElement.attr('active_', '');
+				keyElement.attr('active_', 'primary');
 			}
 
 			keyElement.appendTo($('ul[__keys]'));
@@ -44,20 +44,36 @@ $(() => {
 	$('ul').on('click', 'li', function() {
 		let element = $(this),
 			note = element.data('note'),
-			active = element.attr('active_');
+			active = element.attr('active_'),
+			elements = $('li[data-note="'+note+'"]');
 
-		if(element.parent().is(':not([__frets])')) {
+		if(element.is('ul[__keys] li')) {
 			if(active === undefined) {
-				$('li[data-note="'+note+'"]').attr('active_', '');
+				elements.attr('active_', '');
 			} else {
-				$('li[data-note="'+note+'"]').removeAttr('active_');
+				elements.removeAttr('active_');
 			}
 		} else {
 			if(active !== 'primary') {
-				$('li[data-note="'+note+'"]').attr('active_', '');
-				element.attr('active_', 'primary').siblings('[active_]').attr('active_', '');
+				elements.attr('active_', function() {
+					let element_ = $(this),
+						active_ = element_.attr('active_');
+
+					if(element_.is('ul[__keys] li') || element_.is(element)) {
+						return 'primary';
+					}
+					if(active_ === undefined) {
+						return '';
+					}
+				});
+
+				element.siblings('li[active_="primary"]').click();
 			} else {
-				$('li[data-note="'+note+'"]').removeAttr('active_');
+				if(elements.filter('ul[__frets] li[active_="primary"]').length > 1) {
+					element.attr('active_', '');
+				} else {
+					elements.removeAttr('active_');
+				}
 			}
 		}
 	});

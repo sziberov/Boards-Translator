@@ -124,12 +124,22 @@ ul {
 			var(--color-transparent),
 			var(--color-black-125)
 		),
+		radial-gradient(200% 50% at bottom,
+			var(--color-orange),
+			var(--color-transparent)
+		);
+}
+
+[_keyboard] ul[__keys] li[active_="primary"] {
+	background-image:
 		linear-gradient(to bottom,
 			var(--color-transparent),
-			var(--color-octave)
+			var(--color-black-125)
+		),
+		radial-gradient(400% 100%  at bottom,
+			var(--color-orange),
+			var(--color-transparent)
 		);
-
-	--color-octave: var(--color-orange);
 }
 
 [_keyboard] ul[__keys] li[black_][active_] {
